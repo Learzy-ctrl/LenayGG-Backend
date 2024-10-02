@@ -1,0 +1,14 @@
+﻿global using LGG.LenayGestorGatos.Aplication.Interfaces.Persistance;
+global using LGG.LenayGestorGatos.Domain.ValueObjects;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Configuration;
+global using LGG.LenayGestorGatos.Aplication.Commons;
+global using LGG.LenayGestorGatos.Infraestructure.DataContexts;
+global using Microsoft.Extensions.DependencyInjection;
+global using LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure;
+global using LGG.LenayGestorGatos.Infraestructure.Repositories;
+global using LGG.LenayGestorGatos.Domain.DTOs.Persona;
+global using Microsoft.Data.SqlClient;
+global using System.Data;
+global using LGG.LenayGestorGatos.Domain.Aggregates.Persona;
+global using LGG.LenayGestorGatos.Domain.DTOs;
