@@ -17,6 +17,10 @@ namespace LGG.LenayGestorGatos.Aplication.Controllers
             _configuration = configuration;
         }
 
-        public IPersonaPresenter PersonaPresenter => new PersonaPresenter(_unitRepository, _mapper);    //
+        public IPersonaPresenter PersonaPresenter => new PersonaPresenter(_unitRepository, _mapper);
+
+        public IUsuarioPresenter usuarioPresenter => new UsuarioPresenter(_unitRepository, _mapper);
+
+        public IFireAuthPresenter fireAuthPresenter => new FireAuthPresenter(_unitRepository, _mapper);
     }
 }

@@ -1,4 +1,6 @@
-﻿/// Developer : Nombre desarrollador
+﻿
+
+/// Developer : Nombre desarrollador
 /// Creation Date : 25/09/2024
 /// Creation Description: Class for connection with the DB
 /// Update Date : --
