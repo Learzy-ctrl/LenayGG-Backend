@@ -14,7 +14,7 @@ public static class DContainer
         .Configure<ConnectionsSettings>(connectionSettingsSection)
         .AddDbContext<GestorGastosContext>(options =>
         {
-            options.UseMySql(configuration.GetConnectionString("DbConnection"), new MySqlServerVersion(new Version(9, 0, 0)));
+            options.UseMySql(configuration.GetConnectionString("DbConnection"), new MySqlServerVersion(new Version(8, 0, 0)));
         }).AddDbContext<GestorInventariosContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("DbConnection"),

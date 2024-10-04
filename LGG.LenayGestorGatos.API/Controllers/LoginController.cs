@@ -32,11 +32,12 @@ namespace LGG.LenayGestorGatos.API.Controllers
         ///          "nombreUser": "David",
         ///          "contrasenia": "123456",
         ///          "email": "correo@test.com"
+        ///          "fechaNacimiento": "2024-10-04T23:50:12.423Z"
         ///         }
-    /// </remarks>   
-    /// <response code="200">string</response>  
-    /// <response code="400">string</response> 
-    /// <response code="500">string</response> 
+        /// </remarks>   
+        /// <response code="200">string</response>  
+        /// <response code="400">string</response> 
+        /// <response code="500">string</response> 
         [HttpPost("AddUsuario")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]

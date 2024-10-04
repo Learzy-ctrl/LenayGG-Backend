@@ -13,5 +13,6 @@ namespace LGG.LenayGestorGatos.Domain.Aggregates.Usuario
         public string NombreUser { get; set; }
         public string Contrasenia { get; set; }
         public string email { get; set; }
+        public DateTime FechaNacimiento { get; set; }
     }
 }
