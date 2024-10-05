@@ -13,5 +13,11 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Services
         /// </summary>
         /// <returns></returns>
         Task<RespuestaDB> SignUp(UsuarioAggregate aggregate);
+
+        /// <summary>
+        /// Inicia sesion al usuario y devuelve un token de acceso
+        /// </summary>
+        /// <returns></returns>
+        Task<RespuestaDB> SignIn(SignInAggregate aggregate);
     }
 }

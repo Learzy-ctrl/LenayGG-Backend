@@ -27,7 +27,7 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
                 var parameters = new DynamicParameters();
                 parameters.Add("p_Id", aggregate.Id, DbType.String);
                 parameters.Add("p_NombreUser", aggregate.NombreUser, DbType.String);
-                parameters.Add("p_fechaNacimento", aggregate.FechaNacimiento, DbType.DateTime);
+                parameters.Add("p_fechaNacimiento", aggregate.FechaNacimiento, DbType.DateTime);
 
                 await connection.ExecuteAsync("InsertarUsuario", parameters, commandType: CommandType.StoredProcedure);
 

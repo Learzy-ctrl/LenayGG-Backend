@@ -9,9 +9,14 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
     public class FireAuthInfraestructure : IFireAuthInfraestructure
     {
         private readonly FirebaseContext _fireContext;
+        private static string WebAPIkey = "AIzaSyBElp7J8M4dbtLeagLi_e4xDwvmlN1MhG4";
+        private readonly FirebaseAuthProvider authProvider;
+
+
         public FireAuthInfraestructure(FirebaseContext fireContext)
         {
             _fireContext = fireContext;
+            authProvider = new FirebaseAuthProvider(new FirebaseConfig(WebAPIkey));
         }
 
 
@@ -24,7 +29,7 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             try
             {
                 var app = _fireContext.firebaseApp;
-                var auth = FirebaseAuth.GetAuth(app);
+                var auth = FirebaseAdmin.Auth.FirebaseAuth.GetAuth(app);
                 var userRecord = await auth.CreateUserAsync(new UserRecordArgs()
                 {
                     Email = aggregate.email,
@@ -46,7 +51,40 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
                     TipoError = 1
                 };
             }
+        }
 
+        /// <summary>
+        /// Inicia sesion al usuario y devuelve un token de acceso
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RespuestaDB> SignIn(SignInAggregate aggregate)
+        {
+            try
+            {
+                var token = await authProvider.SignInWithEmailAndPasswordAsync(aggregate.email, aggregate.password);
+                if (token != null)
+                {
+                    return new RespuestaDB
+                    {
+                        Mensaje = token.FirebaseToken,
+                        TipoError = 0
+                    };
+                }
+                return new RespuestaDB
+                {
+                    Mensaje = "Usuario no logeado",
+                    TipoError = 1
+                };
+            }
+            catch (Exception ex)
+            {
+                return new RespuestaDB
+                {
+                    Mensaje = ex.Message,
+                    TipoError = 1
+                };
+            }
+        
         }
     }
 }

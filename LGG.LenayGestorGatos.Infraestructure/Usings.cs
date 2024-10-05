@@ -19,3 +19,4 @@ global using Google.Apis.Auth.OAuth2;
 global using Dapper;
 global using MySqlConnector;
 global using FirebaseAdmin.Auth;
+global using Firebase.Auth;

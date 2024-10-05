@@ -38,13 +38,13 @@ namespace LGG.LenayGestorGatos.API.Controllers
         /// <response code="200">string</response>  
         /// <response code="400">string</response> 
         /// <response code="500">string</response> 
-        [HttpPost("AddUsuario")]
+        [HttpPost("SignUp")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async ValueTask<IActionResult> AddUsuario([FromBody] UsuarioAggregate aggregate)
+        public async ValueTask<IActionResult> SignUp([FromBody] UsuarioAggregate aggregate)
         {
             var response = await _appController.fireAuthPresenter.SignUp(aggregate);
             aggregate.Id = response.Mensaje;
@@ -53,6 +53,33 @@ namespace LGG.LenayGestorGatos.API.Controllers
                 return Ok(await _appController.usuarioPresenter.AddUsuario(aggregate));
             }
             return Ok(response);
+        }
+
+        /// <summary>
+        /// Registro de Usuario a la tabla Usuario, y al servicio de FirebaseAuth
+        /// </summary>
+        /// <param name="">Params de entrada</param> 
+        /// <remarks>
+        /// Sample request: 
+        /// 
+        ///     POST 
+        ///        {
+        ///          "password": "123456",
+        ///          "email": "correo@test.com"
+        ///         }
+        /// </remarks>   
+        /// <response code="200">string</response>  
+        /// <response code="400">string</response> 
+        /// <response code="500">string</response> 
+        [HttpPost("SignIn")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async ValueTask<IActionResult> SignIn([FromBody] SignInAggregate aggregate)
+        {
+            return Ok(await _appController.fireAuthPresenter.SignIn(aggregate));
         }
     }
 }

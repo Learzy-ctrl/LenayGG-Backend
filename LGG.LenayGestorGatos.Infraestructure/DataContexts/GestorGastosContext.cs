@@ -16,7 +16,7 @@ namespace LGG.LenayGestorGatos.Infraestructure.DataContexts
             if (!optionsBuilder.IsConfigured)
             {
 
-                optionsBuilder.UseMySql("", new MySqlServerVersion(new Version(8, 0, 0)));
+                optionsBuilder.UseMySql("", new MySqlServerVersion(new Version(9, 0, 0)));
             }
         }
     }

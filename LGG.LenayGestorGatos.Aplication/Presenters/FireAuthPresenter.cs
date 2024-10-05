@@ -27,5 +27,15 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
         {
             return await _unitRepository.fireAuthInfraestructure.SignUp(aggregate);
         }
+
+
+        /// <summary>
+        /// Inicia sesion al usuario y devuelve un token de acceso
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RespuestaDB> SignIn(SignInAggregate aggregate)
+        {
+            return await _unitRepository.fireAuthInfraestructure.SignIn(aggregate);
+        }
     }
 }
