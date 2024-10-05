@@ -4,9 +4,9 @@ WORKDIR /app
 
 # Copia los archivos .csproj de cada proyecto y restaura dependencias
 COPY LGG.LenayGestorGatos.API/*.csproj ./LGG.LenayGestorGatos.API/
-COPY LGG.LenayGestorGatos.Aplicacion/*.csproj ./LGG.LenayGestorGatos.Aplicacion/
+COPY LGG.LenayGestorGatos.Aplication/*.csproj ./LGG.LenayGestorGatos.Aplication/
 COPY LGG.LenayGestorGatos.Domain/*.csproj ./LGG.LenayGestorGatos.Domain/
-COPY LGG.LenayGestorGatos.Infrastructure/*.csproj ./LGG.LenayGestorGatos.Infrastructure/
+COPY LGG.LenayGestorGatos.Infraestructure/*.csproj ./LGG.LenayGestorGatos.Infraestructure/
 
 # Restaura las dependencias del proyecto API, que debería tener referencias a los demás proyectos
 RUN dotnet restore ./LGG.LenayGestorGatos.API/LGG.LenayGestorGatos.API.csproj
