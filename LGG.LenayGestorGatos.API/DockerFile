@@ -1,0 +1,30 @@
+# Usa una imagen base de .NET SDK para compilar
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+WORKDIR /app
+
+# Copia los archivos .csproj de cada proyecto y restaura dependencias
+COPY LGG.LenayGestorGatos.API/*.csproj ./LGG.LenayGestorGatos.API/
+COPY LGG.LenayGestorGatos.Aplication/*.csproj ./LGG.LenayGestorGatos.Aplication/
+COPY LGG.LenayGestorGatos.Domain/*.csproj ./LGG.LenayGestorGatos.Domain/
+COPY LGG.LenayGestorGatos.Infraestructure/*.csproj ./LGG.LenayGestorGatos.Infraestructure/
+
+# Restaura las dependencias del proyecto API, que debería tener referencias a los demás proyectos
+RUN dotnet restore ./LGG.LenayGestorGatos.API/LGG.LenayGestorGatos.API.csproj
+
+# Copia todo el código fuente de la solución
+COPY . ./
+
+# Publica la aplicación en modo Release
+RUN dotnet publish ./LGG.LenayGestorGatos.API/LGG.LenayGestorGatos.API.csproj -c Release -o out
+
+# Usa una imagen base de .NET Runtime para ejecutar
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+COPY --from=build-env /app/out .
+
+# Exponer el puerto (ajustar según lo que se necesite)
+EXPOSE 80
+
+# Inicia la aplicación
+ENTRYPOINT ["dotnet", "LGG.LenayGestorGatos.API.dll"]
+

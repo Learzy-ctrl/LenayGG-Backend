@@ -6,7 +6,16 @@ builder.Logging.ClearProviders();
 //Services
 builder.Services.AddControllers();
 builder.Services.AddSwagger(builder);
-//builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 //Configure session -----------------------------
@@ -57,5 +66,6 @@ app.UseAuthorization();
 app.UseSession();
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseCors("AllowAll");
 app.Run();
 public partial class Program { }

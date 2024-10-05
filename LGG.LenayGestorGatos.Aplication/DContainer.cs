@@ -1,11 +1,6 @@
 ﻿using LGG.LenayGestorGatos.Aplication.Controllers;
 using LGG.LenayGestorGatos.Aplication.Mapping;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LGG.LenayGestorGatos.Aplication
 {
