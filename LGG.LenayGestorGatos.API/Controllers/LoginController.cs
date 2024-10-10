@@ -47,8 +47,8 @@ namespace LGG.LenayGestorGatos.API.Controllers
         public async ValueTask<IActionResult> SignUp([FromBody] UsuarioAggregate aggregate)
         {
             var response = await _appController.fireAuthPresenter.SignUp(aggregate);
-            aggregate.Id = response.Mensaje;
-            if(response.TipoError == 0)
+            aggregate.Id = response.Resultado;
+            if(response.NumError == 0)
             {
                 return Ok(await _appController.usuarioPresenter.AddUsuario(aggregate));
             }

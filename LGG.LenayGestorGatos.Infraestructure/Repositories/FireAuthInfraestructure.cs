@@ -38,8 +38,8 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
                 });
                 var respuesta = new RespuestaDB
                 {
-                    Mensaje = userRecord.Uid,
-                    TipoError = 0
+                    Resultado = userRecord.Uid,
+                    NumError = 0
                 };
                 return respuesta;
             }
@@ -47,8 +47,8 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             {
                 return new RespuestaDB
                 {
-                    Mensaje = $"Error al crear Usuario: {ex.Message}",
-                    TipoError = 1
+                    Resultado = $"Error al crear Usuario: {ex.Message}",
+                    NumError = 1
                 };
             }
         }
@@ -66,22 +66,22 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
                 {
                     return new RespuestaDB
                     {
-                        Mensaje = token.FirebaseToken,
-                        TipoError = 0
+                        Resultado = token.FirebaseToken,
+                        NumError = 0
                     };
                 }
                 return new RespuestaDB
                 {
-                    Mensaje = "Usuario no logeado",
-                    TipoError = 1
+                    Resultado = "Usuario no logeado",
+                    NumError = 1
                 };
             }
             catch (Exception ex)
             {
                 return new RespuestaDB
                 {
-                    Mensaje = ex.Message,
-                    TipoError = 1
+                    Resultado = ex.Message,
+                    NumError = 1
                 };
             }
         
