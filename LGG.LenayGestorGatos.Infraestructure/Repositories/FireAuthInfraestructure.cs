@@ -86,5 +86,32 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             }
         
         }
+
+
+        /// <summary>
+        /// Valida si el token del usuario es valido
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RespuestaDB> ValidateAuth(string token)
+        {
+            try
+            {
+                var app = _fireContext.firebaseApp;
+                var auth = FirebaseAdmin.Auth.FirebaseAuth.GetAuth(app);
+                var decodedToken = await auth.VerifyIdTokenAsync(token);
+                return new RespuestaDB
+                {
+                    Resultado = decodedToken.Uid,
+                    NumError = 0
+                };
+            }catch(Exception ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = "Token Expirado o no valido",
+                    NumError = 1
+                };
+            }
+        }
     }
 }
