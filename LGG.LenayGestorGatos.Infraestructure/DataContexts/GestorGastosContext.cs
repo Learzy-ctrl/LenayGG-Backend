@@ -1,5 +1,7 @@
 ﻿
 
+using LGG.LenayGestorGatos.Domain.DTOs.Wallet;
+
 namespace LGG.LenayGestorGatos.Infraestructure.DataContexts
 {
     public class GestorGastosContext : DbContext
@@ -9,6 +11,7 @@ namespace LGG.LenayGestorGatos.Infraestructure.DataContexts
         #region Generic Dtos DB
         public DbSet<RespuestaDB> respuestaDB { get; set; }
         public DbSet<UsuarioDto> usuarioDto { get; set; }
+        public DbSet<WalletDto> walletDto { get; set; }
         #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -10,5 +10,6 @@ namespace LGG.LenayGestorGatos.Aplication.Interfaces.Persistance
         IPersonaInfraestructure personaInfraestructure {  get; }
         IUsuarioInfrastructure usuarioInfrastructure { get; }
         IFireAuthInfraestructure fireAuthInfraestructure { get; }
+        IWalletInfraestructure walletInfraestructure { get; }
     }
 }
