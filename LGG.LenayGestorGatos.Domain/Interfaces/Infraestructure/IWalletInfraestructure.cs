@@ -1,4 +1,6 @@
-﻿/// Developer : Israel Curiel
+﻿
+
+/// Developer : Israel Curiel
 /// Creation Date : 10/10/2024
 /// Creation Description:Interface
 /// Update Date : --
@@ -13,5 +15,11 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
         /// </summary>
         /// <returns></returns>
         Task<RespuestaDB> AddWallet(WalletAggregate aggregate);
+
+        /// <summary>
+        /// Consulta todas las billeteras del usuario
+        /// </summary>
+        /// <returns></returns>
+        Task<List<WalletDto>> GetWallets(string IdUser);
     }
 }

@@ -5,6 +5,7 @@
 /// Update Description : --
 ///CopyRight: Lenay gestor de gastos
 using LGG.LenayGestorGatos.Domain.Aggregates.Wallet;
+using LGG.LenayGestorGatos.Domain.DTOs.Wallet;
 
 namespace LGG.LenayGestorGatos.Infraestructure.Repositories
 {
@@ -60,5 +61,26 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             }
         }
 
+
+        /// <summary>
+        /// Consulta las billeteras de un usuario
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<WalletDto>> GetWallets(string IdUser)
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_ConsultarBilleterasPorUsuario(@p_IdUsuario)";
+                var parameters = new[]
+                {
+                    new MySqlParameter("@p_IdUsuario", IdUser),
+                };
+                var dataSP = await _context.walletDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return dataSP;
+            }catch(MySqlException ex)
+            {
+                return null;
+            }
+        }
     }
 }

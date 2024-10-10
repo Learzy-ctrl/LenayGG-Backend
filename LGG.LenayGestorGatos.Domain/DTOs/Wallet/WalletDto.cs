@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace LGG.LenayGestorGatos.Domain.DTOs.Wallet
 {
@@ -12,7 +8,8 @@ namespace LGG.LenayGestorGatos.Domain.DTOs.Wallet
         public Guid Id { get; set; }
         public string Nombre { get; set; }
         public decimal Saldo { get; set; }
-        public decimal TazaInteres { get; set; }
+        public decimal LimiteCredito { get; set; }  
+        public decimal TasaInteres { get; set; }
         public int IdTipoCuenta { get; set; }
         public DateTime FechaDePago { get; set; }
         public DateTime FechaCorte { get; set; }
