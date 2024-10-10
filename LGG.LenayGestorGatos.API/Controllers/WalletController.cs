@@ -66,9 +66,6 @@ namespace LGG.LenayGestorGatos.API.Controllers
         /// <param name="">Params de entrada</param> 
         /// <remarks>
         /// Sample request: 
-              /*{
-                  "idUser": "string"
-                 }*/
         /// </remarks>   
         /// <response code="200">string</response>  
         /// <response code="400">string</response> 
@@ -93,6 +90,42 @@ namespace LGG.LenayGestorGatos.API.Controllers
                 return Unauthorized("Token no válido.");
             }
             return Ok(await _appController.walletPresenter.GetWallets(token));
+        }
+
+
+        /// <summary>
+        /// Se consulta todas las billeteras registradas por el usuario
+        /// </summary>
+        /// <param name="">Params de entrada</param> 
+        /// <remarks>
+        /// Sample request: 
+              /*{
+                  "id": "e56ca258-86f0-11ef-a534-088fc33042fa"
+                 }*/
+        /// </remarks>   
+        /// <response code="200">string</response>  
+        /// <response code="400">string</response> 
+        /// <response code="500">string</response> 
+        [HttpPost("GetWalletById")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async ValueTask<IActionResult> GetWalletById([FromHeader] string Authorization, [FromBody] IdWalletAggregate idWallet)
+        {
+            if (string.IsNullOrEmpty(Authorization))
+            {
+                return Unauthorized("Token no proporcionado.");
+            }
+
+            var token = Authorization.StartsWith("Bearer ") ? Authorization.Substring("Bearer ".Length).Trim() : null;
+
+            if (token == null)
+            {
+                return Unauthorized("Token no válido.");
+            }
+            return Ok(await _appController.walletPresenter.GetWalletById(token, idWallet));
         }
     }
 }

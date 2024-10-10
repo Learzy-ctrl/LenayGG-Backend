@@ -61,7 +61,6 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             }
         }
 
-
         /// <summary>
         /// Consulta las billeteras de un usuario
         /// </summary>
@@ -82,5 +81,28 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
                 return null;
             }
         }
+
+        /// <summary>
+        /// Consulta una billetera de un usuario
+        /// </summary>
+        /// <returns></returns>
+        public async Task<WalletDto> GetWalletById(IdWalletAggregate idWallet)
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_ConsultarBilleteraEspecifica(@p_IdBilletera)";
+                var parameters = new[]
+                {
+                    new MySqlParameter("@p_IdBilletera", idWallet.id)
+                };
+                var dataSP = await _context.walletDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return dataSP.FirstOrDefault();
+            }
+            catch (MySqlException ex)
+            {
+                return null;
+            }
+        }
+
     }
 }

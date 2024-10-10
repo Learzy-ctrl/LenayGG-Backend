@@ -31,6 +31,10 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
             return await _unitRepository.walletInfraestructure.AddWallet(aggregate);
         }
 
+        /// <summary>
+        /// Consulta las billeteras registradas de un usuario
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<WalletDto>> GetWallets(string token)
         {
             var respuesta = await _unitRepository.fireAuthInfraestructure.ValidateAuth(token);
@@ -40,6 +44,20 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
             }
             var IdUser = respuesta.Resultado;
             return await _unitRepository.walletInfraestructure.GetWallets(IdUser);
+        }
+
+        /// <summary>
+        /// Consulta una billetera de un usuario
+        /// </summary>
+        /// <returns></returns>
+        public async Task<WalletDto> GetWalletById(string token, IdWalletAggregate idWallet)
+        {
+            var respuesta = await _unitRepository.fireAuthInfraestructure.ValidateAuth(token);
+            if (respuesta.NumError != 0)
+            {
+                return null;
+            }
+            return await _unitRepository.walletInfraestructure.GetWalletById(idWallet);
         }
     }
 }
