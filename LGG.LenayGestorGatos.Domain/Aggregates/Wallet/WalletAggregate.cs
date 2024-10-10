@@ -8,6 +8,7 @@ namespace LGG.LenayGestorGatos.Domain.Aggregates.Wallet
 {
     public class WalletAggregate
     {
+        public Guid idBilletera {  get; set; }
         public string Nombre { get; set; }
         public decimal Saldo { get; set; }
         public decimal LimiteCredito { get; set; }

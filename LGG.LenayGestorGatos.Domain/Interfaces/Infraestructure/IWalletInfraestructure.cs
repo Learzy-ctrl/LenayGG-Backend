@@ -25,5 +25,11 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
         /// </summary>
         /// <returns></returns>
         Task<WalletDto> GetWalletById(IdWalletAggregate idWallet);
+
+        /// <summary>
+        /// Edita algunos campos de una billetera
+        /// </summary>
+        /// <returns></returns>
+        Task<RespuestaDB>UpdateWallet(WalletAggregate aggregate);
     }
 }

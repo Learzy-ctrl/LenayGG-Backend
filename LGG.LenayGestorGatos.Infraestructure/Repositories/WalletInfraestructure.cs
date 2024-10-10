@@ -104,5 +104,41 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             }
         }
 
+        /// <summary>
+        /// Edita algunos campos de una billetera
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RespuestaDB> UpdateWallet(WalletAggregate aggregate)
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_EditarBilletera(@p_IdBilletera, @p_Nombre, @p_LimiteCredito, @p_TasaInteres, @p_FechaDePago, @p_FechaCorte, @p_Color)";
+                var parameters = new[]
+                {
+                    new MySqlParameter("@p_IdBilletera", aggregate.idBilletera),
+                    new MySqlParameter("@p_Nombre", aggregate.Nombre),
+                    new MySqlParameter("@p_LimiteCredito", aggregate.LimiteCredito),
+                    new MySqlParameter("@p_TasaInteres", aggregate.TazaInteres),
+                    new MySqlParameter("@p_FechaDePago", aggregate.FechaDePago),
+                    new MySqlParameter("@p_FechaCorte", aggregate.FechaCorte),
+                    new MySqlParameter("@p_Color", aggregate.Color)
+                };
+
+                await _context.Database.ExecuteSqlRawAsync(sqlQuery, parameters);
+                return new RespuestaDB
+                {
+                    Resultado = "Operacion exitosa",
+                    NumError = 0
+                };
+            }
+            catch(MySqlException ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Error en la base de datos: {ex.Message}",
+                    NumError = 1
+                };
+            }
+        }
     }
 }

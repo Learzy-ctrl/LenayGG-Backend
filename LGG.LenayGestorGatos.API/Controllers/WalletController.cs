@@ -1,4 +1,6 @@
-﻿/// Developer : Israel Curiel
+﻿using Microsoft.Identity.Client;
+
+/// Developer : Israel Curiel
 /// Creation Date : 10/10/2024
 /// Creation Description: Controlador
 /// Update Date : --
@@ -23,6 +25,7 @@ namespace LGG.LenayGestorGatos.API.Controllers
         /// <remarks>
         /// Sample request: 
               /*{
+                  "idBilletera": ""
                   "nombre": "Mercado Pago",
                   "saldo": 50,
                   "limiteCredito": 0,
@@ -126,6 +129,48 @@ namespace LGG.LenayGestorGatos.API.Controllers
                 return Unauthorized("Token no válido.");
             }
             return Ok(await _appController.walletPresenter.GetWalletById(token, idWallet));
+        }
+
+
+        /// <summary>
+        /// Registro de Billetera con autenticacion en firebase
+        /// </summary>
+        /// <param name="">Params de entrada</param> 
+        /// <remarks>
+        /// Sample request: 
+              /*{
+                  "idBilletera": "fdgdsadfgdf-asfaasd-asfgfdsa"
+                  "nombre": "Mercado Pago",
+                  "limiteCredito": 0,
+                  "tazaInteres": 0,
+                  "fechaDePago": "2024-10-10T09:48:42.620Z",
+                  "fechaCorte": "2024-10-10T09:48:42.620Z",
+                  "color": "#ffffff"
+                 }*/
+        /// </remarks>   
+        /// <response code="200">string</response>  
+        /// <response code="400">string</response> 
+        /// <response code="500">string</response> 
+        [HttpPost("UpdateWallet")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async ValueTask<IActionResult> UpdateWallet([FromHeader] string Authorization, [FromBody] WalletAggregate aggregate)
+        {
+            if (string.IsNullOrEmpty(Authorization))
+            {
+                return Unauthorized("Token no proporcionado.");
+            }
+
+            var token = Authorization.StartsWith("Bearer ") ? Authorization.Substring("Bearer ".Length).Trim() : null;
+
+            if (token == null)
+            {
+                return Unauthorized("Token no válido.");
+            }
+            return Ok(await _appController.walletPresenter.UpdateWallet(token, aggregate));
         }
     }
 }

@@ -59,5 +59,19 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
             }
             return await _unitRepository.walletInfraestructure.GetWalletById(idWallet);
         }
+
+        /// <summary>
+        /// Edita algunos campos de una billetera
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RespuestaDB> UpdateWallet(string token, WalletAggregate aggregate)
+        {
+            var respuesta = await _unitRepository.fireAuthInfraestructure.ValidateAuth(token);
+            if (respuesta.NumError != 0)
+            {
+                return respuesta;
+            }
+            return await _unitRepository.walletInfraestructure.UpdateWallet(aggregate);
+        }
     }
 }
