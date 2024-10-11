@@ -172,5 +172,41 @@ namespace LGG.LenayGestorGatos.API.Controllers
             }
             return Ok(await _appController.walletPresenter.UpdateWallet(token, aggregate));
         }
+
+
+        /// <summary>
+        /// Se elimina una billetera por su id
+        /// </summary>
+        /// <param name="">Params de entrada</param> 
+        /// <remarks>
+        /// Sample request: 
+              /*{
+                  "id": "e56ca258-86f0-11ef-a534-088fc33042fa"
+                 }*/
+        /// </remarks>   
+        /// <response code="200">string</response>  
+        /// <response code="400">string</response> 
+        /// <response code="500">string</response> 
+        [HttpPost("DeleteWallet")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async ValueTask<IActionResult> DeleteWallet([FromHeader] string Authorization, [FromBody] IdWalletAggregate aggregate)
+        {
+            if (string.IsNullOrEmpty(Authorization))
+            {
+                return Unauthorized("Token no proporcionado.");
+            }
+
+            var token = Authorization.StartsWith("Bearer ") ? Authorization.Substring("Bearer ".Length).Trim() : null;
+
+            if (token == null)
+            {
+                return Unauthorized("Token no válido.");
+            }
+            return Ok(await _appController.walletPresenter.DeleteWallet(token, aggregate));
+        }
     }
 }

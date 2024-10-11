@@ -140,5 +140,34 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
                 };
             }
         }
+
+        /// <summary>
+        /// Elimina una billetera por su id
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RespuestaDB> DeleteWallet(IdWalletAggregate idWallet)
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_EliminarBilletera(@p_IdBilletera)";
+                var parameters = new[]
+                {
+                    new MySqlParameter("@p_IdBilletera", idWallet.id)
+                };
+                await _context.Database.ExecuteSqlRawAsync(sqlQuery, parameters);
+                return new RespuestaDB
+                {
+                    Resultado = "Operacion exitosa",
+                    NumError = 0
+                };
+            }catch(MySqlException ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Ocurrio un error {ex.Message}",
+                    NumError = 1
+                };
+            }
+        }
     }
 }
