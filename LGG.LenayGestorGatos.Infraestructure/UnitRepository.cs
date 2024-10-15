@@ -41,6 +41,8 @@ public class UnitRepository:BaseDisposable, IUnitRepository
 
     public IFireAuthInfraestructure fireAuthInfraestructure => new FireAuthInfraestructure(_fireContext);
 
+    public IWalletInfraestructure walletInfraestructure => new WalletInfraestructure(_contexto);
+
     public async ValueTask<bool> Complete()
     {
         return await _context.SaveChangesAsync() > 0;

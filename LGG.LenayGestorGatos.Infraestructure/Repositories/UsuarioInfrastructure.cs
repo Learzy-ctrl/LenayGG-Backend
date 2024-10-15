@@ -22,29 +22,30 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
         {
             try
             {
-                var connection = _context.Database.GetDbConnection();
+                var sqlQuery = "CALL SP_InsertarUsuario(@p_Id, @p_NombreUser, @p_fechaNacimiento)";
 
-                var parameters = new DynamicParameters();
-                parameters.Add("p_Id", aggregate.Id, DbType.String);
-                parameters.Add("p_NombreUser", aggregate.NombreUser, DbType.String);
-                parameters.Add("p_fechaNacimiento", aggregate.FechaNacimiento, DbType.DateTime);
-
-                await connection.ExecuteAsync("InsertarUsuario", parameters, commandType: CommandType.StoredProcedure);
-
-                var respuesta = new RespuestaDB
+                var parameters = new[]
                 {
-                    Mensaje = "Usuario insertado con éxito",
-                    TipoError = 0
+                    new MySqlParameter("@p_Id", aggregate.Id),
+                    new MySqlParameter("@p_NombreUser", aggregate.NombreUser),
+                    new MySqlParameter("@p_fechaNacimiento", aggregate.FechaNacimiento)
                 };
 
-                return respuesta;
+                await _context.Database.ExecuteSqlRawAsync(sqlQuery, parameters);
+
+                return new RespuestaDB
+                {
+                    Resultado = "Operacion exitosa",
+                    NumError = 0
+                };
+
             }
             catch (MySqlException ex)
             {
                 return new RespuestaDB
                 {
-                    Mensaje = $"Error en la base de datos: {ex.Message}",
-                    TipoError = 1
+                    Resultado = $"Error en la base de datos: {ex.Message}",
+                    NumError = 1
                 };
             }
         }

@@ -9,7 +9,7 @@ namespace LGG.LenayGestorGatos.Domain.DTOs
     public class RespuestaDB
     {
         [Key]
-        public int TipoError {  get; set; }
-        public string Mensaje {  get; set; }
+        public int NumError {  get; set; }
+        public string Resultado {  get; set; }
     }
 }

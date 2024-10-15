@@ -19,5 +19,11 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
         /// </summary>
         /// <returns></returns>
         Task<RespuestaDB> SignIn(SignInAggregate aggregate);
+
+        /// <summary>
+        /// Valida si el token del usuario es valido
+        /// </summary>
+        /// <returns></returns>
+        Task<RespuestaDB> ValidateAuth(string token);
     }
 }
