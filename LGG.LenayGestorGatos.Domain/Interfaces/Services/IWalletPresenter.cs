@@ -1,8 +1,8 @@
 ﻿/// Developer : Israel Curiel
-/// Creation Date : 02/10/2024
+/// Creation Date : 10/10/2024
 /// Creation Description:Interface
-/// Update Date : --
-/// Update Description : --
+/// Update Date : 17/10/2024
+/// Update Description : Cambio de retorno en metodos
 ///CopyRight: Lenay gestor de gastos
 namespace LGG.LenayGestorGatos.Domain.Interfaces.Services
 {
@@ -18,13 +18,13 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Services
         /// Consulta todas las billeteras del usuario
         /// </summary>
         /// <returns></returns>
-        Task<List<WalletDto>> GetWallets(string token);
+        Task<object> GetWallets(string token);
 
         /// <summary>
         /// Consulta una billetera del usuario
         /// </summary>
         /// <returns></returns>
-        Task<WalletDto> GetWalletById(string token, IdWalletAggregate idWallet);
+        Task<object> GetWalletById(string token, IdWalletAggregate idWallet);
 
         /// <summary>
         /// Edita algunos campos de una billetera
