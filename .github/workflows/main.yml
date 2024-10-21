@@ -1,0 +1,20 @@
+name: .NET
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps: 
+    - uses: actions/checkout@v2 # Descarga el código
+      with:
+        fetch-depth: 0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1 # Configura el ambiente para .NET
+      with:
+        dotnet-version: 5.0.x
+    - name: Restaurar dependencias
+      run: dotnet restore # Restaura las dependencias
+    - name: Build
+      run: dotnet build --no-restore --configuration release # Compilar en modo release
