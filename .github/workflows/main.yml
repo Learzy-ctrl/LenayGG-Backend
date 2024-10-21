@@ -13,7 +13,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1 # Configura el ambiente para .NET
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 8.0.x
     - name: Restaurar dependencias
       run: dotnet restore # Restaura las dependencias
     - name: Build
