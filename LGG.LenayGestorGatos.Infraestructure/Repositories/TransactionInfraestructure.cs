@@ -81,35 +81,92 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             }
         }
 
-        public async Task<object> GetRegistrosGastosByIdUsuario(string token)
+        public async Task<object> GetRegistrosGastosByIdUsuario(string usuarioId)
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_ConsultarGastosPorUsuario(@p_IdUsuario)";
+                var parameters = new[]
+                {
+                    new MySqlParameter("@p_IdUsuario", usuarioId)
+                };
+                var dataSP = await _context.gastoDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return dataSP;
+            }
+            catch(MySqlException ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Error en la base de datos: {ex.Message}",
+                    NumError = 2
+                };
+            }
+        }
+
+        public async Task<object> GetRegistrosGastosByIdWallet(IdWalletAggregate aggregate)
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_ConsultarGastosPorBilletera(@p_IdBilletera)";
+                var parameters = new[]
+                {
+                    new MySqlParameter("@p_IdBilletera", aggregate.id)
+                };
+                var dataSP = await _context.gastoDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return dataSP;
+            }
+            catch(MySqlException ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Error en la base de datos: {ex.Message}",
+                    NumError = 2
+                };
+            }
+        }
+
+        public async Task<object> GetRegistrosIngresosByIdUsuario(string usuarioId)
         {
             try
             {
                 var sqlQuery = "CALL SP_ConsultarIngresosPorUsuario(@p_IdUsuario)";
                 var parameters = new[]
                 {
-                    new MySqlParameter("@p_IdUsuario", )
+                    new MySqlParameter("@p_IdUsuario", usuarioId)
+                };
+                var dataSP = await _context.ingresoDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return dataSP;
+            }
+            catch (MySqlException ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Error en la base de datos: {ex.Message}",
+                    NumError = 2
                 };
             }
-            catch(MySqlException ex)
+        }
+
+        public async Task<object> GetRegistrosIngresosByIdWallet(IdWalletAggregate aggregate)
+        {
+            try
             {
-
+                var sqlQuery = "CALL SP_ConsultarIngresosPorBilletera(@p_IdBilletera)";
+                var parameters = new[]
+                {
+                    new MySqlParameter("@p_IdBilletera", aggregate.id)
+                };
+                var dataSP = await _context.ingresoDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return dataSP;
             }
-        }
-
-        public Task<object> GetRegistrosGastosByIdWallet(IdWalletAggregate aggregate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<object> GetRegistrosIngresosByIdUsuario(string token)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<object> GetRegistrosIngresosByIdWallet(IdWalletAggregate aggregate)
-        {
-            throw new NotImplementedException();
+            catch (MySqlException ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Error en la base de datos: {ex.Message}",
+                    NumError = 2
+                };
+            }
         }
     }
 }
