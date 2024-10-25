@@ -12,25 +12,25 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
         /// Agrega un registro a la tabla Gasto
         /// </summary>
         /// <returns></returns>
-        Task<RespuestaDB> AddGasto(TransactionAggregate aggregate, string token);
+        Task<RespuestaDB> AddGasto(TransactionAggregate aggregate);
 
         /// <summary>
         /// Agrega un registro a la tabla Ingreso
         /// </summary>
         /// <returns></returns>
-        Task<RespuestaDB> AddIngreso(TransactionAggregate aggregate, string token);
+        Task<RespuestaDB> AddIngreso(TransactionAggregate aggregate);
 
         /// <summary>
         /// Obtiene todos los registros de la tabla Gasto de una billetera en especifico 
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRegistrosGastosByIdWallet(IdWalletAggregate aggregate, string token);
+        Task<object> GetRegistrosGastosByIdWallet(IdWalletAggregate aggregate);
 
         /// <summary>
         /// Obtiene todos los registros de la tabla Ingreso de una billetera en especifico 
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRegistrosIngresosByIdWallet(IdWalletAggregate aggregate, string token);
+        Task<object> GetRegistrosIngresosByIdWallet(IdWalletAggregate aggregate);
 
         /// <summary>
         /// Obtiene todos los registros de la tabla Gasto de un usuario en especifico
