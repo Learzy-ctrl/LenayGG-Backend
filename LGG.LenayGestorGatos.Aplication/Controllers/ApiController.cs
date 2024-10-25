@@ -24,5 +24,7 @@ namespace LGG.LenayGestorGatos.Aplication.Controllers
         public IFireAuthPresenter fireAuthPresenter => new FireAuthPresenter(_unitRepository, _mapper);
 
         public IWalletPresenter walletPresenter => new WalletPresenter(_unitRepository, _mapper);
+
+        public ITransactionPresenter transactionPresenter => new TransactionPresenter(_unitRepository, _mapper);
     }
 }
