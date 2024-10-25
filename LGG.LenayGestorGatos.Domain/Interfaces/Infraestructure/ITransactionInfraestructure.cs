@@ -36,12 +36,12 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
         /// Obtiene todos los registros de la tabla Gasto de un usuario en especifico
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRegistrosGastosByIdUsuario(string token);
+        Task<object> GetRegistrosGastosByIdUsuario(string usuarioId);
 
         /// <summary>
         /// Obtiene todos los registros de la tabla Ingreso de un usuario en especifico
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRegistrosIngresosByIdUsuario(string token);
+        Task<object> GetRegistrosIngresosByIdUsuario(string usuarioId);
     }
 }
