@@ -1,8 +1,8 @@
 ﻿/// Developer : Israel Curiel
 /// Creation Date : 10/10/2024
 /// Creation Description:Clase
-/// Update Date : --
-/// Update Description : --
+/// Update Date : 17/10/2024
+/// Update Description : Cambio de retorno en metodos
 ///CopyRight: Lenay gestor de gastos
 namespace LGG.LenayGestorGatos.Aplication.Presenters
 {
@@ -35,12 +35,12 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
         /// Consulta las billeteras registradas de un usuario
         /// </summary>
         /// <returns></returns>
-        public async Task<List<WalletDto>> GetWallets(string token)
+        public async Task<object> GetWallets(string token)
         {
             var respuesta = await _unitRepository.fireAuthInfraestructure.ValidateAuth(token);
             if (respuesta.NumError != 0)
             {
-                return null;
+                return respuesta;
             }
             var IdUser = respuesta.Resultado;
             return await _unitRepository.walletInfraestructure.GetWallets(IdUser);
@@ -50,12 +50,12 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
         /// Consulta una billetera de un usuario
         /// </summary>
         /// <returns></returns>
-        public async Task<WalletDto> GetWalletById(string token, IdWalletAggregate idWallet)
+        public async Task<object> GetWalletById(string token, IdWalletAggregate idWallet)
         {
             var respuesta = await _unitRepository.fireAuthInfraestructure.ValidateAuth(token);
             if (respuesta.NumError != 0)
             {
-                return null;
+                return respuesta;
             }
             return await _unitRepository.walletInfraestructure.GetWalletById(idWallet);
         }
