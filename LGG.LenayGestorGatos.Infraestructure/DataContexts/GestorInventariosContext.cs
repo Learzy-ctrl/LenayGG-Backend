@@ -1,5 +1,4 @@
-﻿using LGG.LenayGestorGatos.Domain.DTOs;
-
+﻿
 namespace LGG.LenayGestorGatos.Infraestructure.DataContexts;
 public class GestorInventariosContext : DbContext
 {
