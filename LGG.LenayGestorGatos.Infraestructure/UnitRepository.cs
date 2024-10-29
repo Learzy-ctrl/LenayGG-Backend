@@ -43,6 +43,8 @@ public class UnitRepository:BaseDisposable, IUnitRepository
 
     public IWalletInfraestructure walletInfraestructure => new WalletInfraestructure(_contexto);
 
+    public ITransactionInfraestructure transactionInfraestructure => new TransactionInfraestructure(_contexto);
+
     public async ValueTask<bool> Complete()
     {
         return await _context.SaveChangesAsync() > 0;

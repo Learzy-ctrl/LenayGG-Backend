@@ -1,8 +1,4 @@
-﻿
-
-using LGG.LenayGestorGatos.Domain.DTOs.Wallet;
-
-namespace LGG.LenayGestorGatos.Infraestructure.DataContexts
+﻿namespace LGG.LenayGestorGatos.Infraestructure.DataContexts
 {
     public class GestorGastosContext : DbContext
     {
@@ -12,7 +8,14 @@ namespace LGG.LenayGestorGatos.Infraestructure.DataContexts
         public DbSet<RespuestaDB> respuestaDB { get; set; }
         public DbSet<UsuarioDto> usuarioDto { get; set; }
         public DbSet<WalletDto> walletDto { get; set; }
+        public DbSet<GastoDto> gastoDto { get; set; }
+        public DbSet<IngresoDto> ingresoDto {  get; set; }
         #endregion
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<GastoDto>().HasNoKey();
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

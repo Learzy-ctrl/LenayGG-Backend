@@ -20,3 +20,5 @@ global using Dapper;
 global using MySqlConnector;
 global using FirebaseAdmin.Auth;
 global using Firebase.Auth;
+global using LGG.LenayGestorGatos.Domain.DTOs.Transaction;
+global using LGG.LenayGestorGatos.Domain.DTOs.Wallet;

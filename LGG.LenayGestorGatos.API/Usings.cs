@@ -9,3 +9,4 @@ global using System.Net.Mime;
 global using LGG.LenayGestorGatos.Domain.Aggregates.Persona;
 global using LGG.LenayGestorGatos.Domain.Aggregates.Usuario;
 global using LGG.LenayGestorGatos.Domain.Aggregates.Wallet;
+global using LGG.LenayGestorGatos.Domain.Aggregates.Transactions;
