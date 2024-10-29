@@ -12,6 +12,11 @@
         public DbSet<IngresoDto> ingresoDto {  get; set; }
         #endregion
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<GastoDto>().HasNoKey();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
