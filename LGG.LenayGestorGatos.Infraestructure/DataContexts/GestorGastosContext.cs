@@ -10,6 +10,7 @@
         public DbSet<WalletDto> walletDto { get; set; }
         public DbSet<GastoDto> gastoDto { get; set; }
         public DbSet<IngresoDto> ingresoDto {  get; set; }
+        public DbSet<CategoriaDto> categoriaDto { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,8 +1,8 @@
 ﻿/// Developer : Israel Curiel
 /// Creation Date : 25/10/2024
 /// Creation Description:Interface
-/// Update Date : --/--/----
-/// Update Description : ------
+/// Update Date : 30/10/2024
+/// Update Description : Metodo GetCategorias Agregado
 ///CopyRight: Lenay gestor de gastos
 namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
 {
@@ -43,5 +43,11 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
         /// </summary>
         /// <returns></returns>
         Task<object> GetRegistrosIngresosByIdUsuario(string usuarioId);
+
+        /// <summary>
+        /// Obtiene todas las categorias de la bd
+        /// </summary>
+        /// <returns></returns>
+        Task<object> GetCategorias();
     }
 }

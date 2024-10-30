@@ -168,5 +168,23 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
                 };
             }
         }
+
+        public async Task<object> GetCategorias()
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_ConsultarCategorias()";
+                var dataSP = await _context.categoriaDto.FromSqlRaw(sqlQuery).ToListAsync();
+                return dataSP;
+            }
+            catch(MySqlException ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Error en la base de datos: {ex.Message}",
+                    NumError = 2
+                };
+            }
+        }
     }
 }

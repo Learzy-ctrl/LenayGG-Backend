@@ -153,5 +153,15 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
 
             return listaTransaccion;
         }
+
+        public async Task<object> GetCategorias(string token)
+        {
+            var respuesta = await _unitRepository.fireAuthInfraestructure.ValidateAuth(token);
+            if (respuesta.NumError != 0)
+            {
+                return respuesta;
+            }
+            return await _unitRepository.transactionInfraestructure.GetCategorias();
+        }
     }
 }
