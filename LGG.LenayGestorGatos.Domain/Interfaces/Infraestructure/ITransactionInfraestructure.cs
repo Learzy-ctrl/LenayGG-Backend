@@ -24,25 +24,25 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
         /// Obtiene todos los registros de la tabla Gasto de una billetera en especifico 
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRegistrosGastosByIdWallet(IdWalletAggregate aggregate);
+        Task<object> GetRegistrosGastosByIdWallet(IdWalletAggregate aggregate, DateTime fechaActual);
 
         /// <summary>
         /// Obtiene todos los registros de la tabla Ingreso de una billetera en especifico 
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRegistrosIngresosByIdWallet(IdWalletAggregate aggregate);
+        Task<object> GetRegistrosIngresosByIdWallet(IdWalletAggregate aggregate, DateTime fechaActual);
 
         /// <summary>
         /// Obtiene todos los registros de la tabla Gasto de un usuario en especifico
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRegistrosGastosByIdUsuario(string usuarioId);
+        Task<object> GetRegistrosGastosByIdUsuario(string usuarioId, DateTime fechaActual);
 
         /// <summary>
         /// Obtiene todos los registros de la tabla Ingreso de un usuario en especifico
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRegistrosIngresosByIdUsuario(string usuarioId);
+        Task<object> GetRegistrosIngresosByIdUsuario(string usuarioId, DateTime fechaActual);
 
         /// <summary>
         /// Obtiene todas las categorias de la bd
