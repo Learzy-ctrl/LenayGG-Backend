@@ -4,8 +4,8 @@ using LGG.LenayGestorGatos.Domain.DTOs.Transaction;
 /// Developer : Israel Curiel
 /// Creation Date : 25/10/2024
 /// Creation Description:Clase
-/// Update Date : --
-/// Update Description : --
+/// Update Date : 03/11/2024
+/// Update Description : Datos Extras agregados(envio de fecha actual y devolucion de datos de la billetera) 
 ///CopyRight: Lenay gestor de gastos
 namespace LGG.LenayGestorGatos.Aplication.Presenters
 {
@@ -66,8 +66,10 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                 return respuesta;
             }
             var IdUsuario = respuesta.Resultado;
-            var gastoObject = await _unitRepository.transactionInfraestructure.GetRegistrosGastosByIdUsuario(IdUsuario);
-            var ingresoObject = await _unitRepository.transactionInfraestructure.GetRegistrosIngresosByIdUsuario(IdUsuario);
+            TimeZoneInfo cdmxTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+            DateTime cdmxDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cdmxTimeZone);
+            var gastoObject = await _unitRepository.transactionInfraestructure.GetRegistrosGastosByIdUsuario(IdUsuario, cdmxDateTime);
+            var ingresoObject = await _unitRepository.transactionInfraestructure.GetRegistrosIngresosByIdUsuario(IdUsuario, cdmxDateTime);
             var listGasto = gastoObject as List<GastoDto>;
             var listIngreso = ingresoObject as List<IngresoDto>;
             if(listGasto == null || listIngreso == null)
@@ -86,6 +88,9 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                 CategoriaColor = g.CategoriaColor,
                 CategoriaNombre = g.CategoriaNombre,
                 Dinero = g.Dinero,
+                BilleteraSaldo = g.BilleteraSaldo,
+                BilleteraNombre = g.BilleteraNombre,
+                BilleteraColor = g.BilleteraColor,
                 TipoTransaccion = "-" 
             }));
 
@@ -98,6 +103,9 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                 CategoriaColor = i.CategoriaColor,
                 CategoriaNombre = i.CategoriaNombre,
                 Dinero = i.Dinero,
+                BilleteraSaldo = i.BilleteraSaldo,
+                BilleteraNombre = i.BilleteraNombre,
+                BilleteraColor = i.BilleteraColor,
                 TipoTransaccion = "+" 
             }));
 
@@ -114,8 +122,10 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
             {
                 return respuesta;
             }
-            var gastoObject = await _unitRepository.transactionInfraestructure.GetRegistrosGastosByIdWallet(aggregate);
-            var ingresoObject = await _unitRepository.transactionInfraestructure.GetRegistrosIngresosByIdWallet(aggregate);
+            TimeZoneInfo cdmxTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+            DateTime cdmxDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cdmxTimeZone);
+            var gastoObject = await _unitRepository.transactionInfraestructure.GetRegistrosGastosByIdWallet(aggregate, cdmxDateTime);
+            var ingresoObject = await _unitRepository.transactionInfraestructure.GetRegistrosIngresosByIdWallet(aggregate, cdmxDateTime);
             var listGasto = gastoObject as List<GastoDto>;
             var listIngreso = ingresoObject as List<IngresoDto>;
             if (listGasto == null || listIngreso == null)
@@ -134,6 +144,9 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                 CategoriaColor = g.CategoriaColor,
                 CategoriaNombre = g.CategoriaNombre,
                 Dinero = g.Dinero,
+                BilleteraSaldo = g.BilleteraSaldo,
+                BilleteraNombre = g.BilleteraNombre,
+                BilleteraColor = g.BilleteraColor,
                 TipoTransaccion = "-"
             }));
 
@@ -146,6 +159,9 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                 CategoriaColor = i.CategoriaColor,
                 CategoriaNombre = i.CategoriaNombre,
                 Dinero = i.Dinero,
+                BilleteraSaldo = i.BilleteraSaldo,
+                BilleteraNombre = i.BilleteraNombre,
+                BilleteraColor = i.BilleteraColor,
                 TipoTransaccion = "+"
             }));
 
