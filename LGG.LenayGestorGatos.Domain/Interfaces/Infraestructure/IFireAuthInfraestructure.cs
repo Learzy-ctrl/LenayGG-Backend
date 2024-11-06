@@ -1,8 +1,8 @@
 ﻿/// Developer : Israel Curiel
 /// Creation Date : 02/10/2024
 /// Creation Description:Interface
-/// Update Date : --
-/// Update Description : --
+/// Update Date : 06/11/24
+/// Update Description : Metodo recuperar contraseña agregada
 ///CopyRight: Lenay gestor de gastos
 namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
 {
@@ -25,5 +25,11 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
         /// </summary>
         /// <returns></returns>
         Task<RespuestaDB> ValidateAuth(string token);
+
+        /// <summary>
+        /// Envia un correo para resetear contrasenia
+        /// </summary>
+        /// <returns></returns>
+        Task<RespuestaDB> ResetPasswordByEmail(ResetPasswordAggregate aggregate);
     }
 }

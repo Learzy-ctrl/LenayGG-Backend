@@ -81,5 +81,31 @@ namespace LGG.LenayGestorGatos.API.Controllers
         {
             return Ok(await _appController.fireAuthPresenter.SignIn(aggregate));
         }
+
+        /// <summary>
+        /// se recibe un email para enviar un correo a este mismo para resetear la contraseña
+        /// </summary>
+        /// <param name="">Params de entrada</param> 
+        /// <remarks>
+        /// Sample request: 
+        /// 
+        ///     POST 
+        ///        {
+        ///          "email": "correo@test.com"
+        ///        }
+        /// </remarks>   
+        /// <response code="200">string</response>  
+        /// <response code="400">string</response> 
+        /// <response code="500">string</response> 
+        [HttpPost("ResetPassword")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async ValueTask<IActionResult> ResetPassword([FromBody] ResetPasswordAggregate aggregate)
+        {
+            return Ok(await _appController.fireAuthPresenter.ResetPasswordByEmail(aggregate));
+        }
     }
 }

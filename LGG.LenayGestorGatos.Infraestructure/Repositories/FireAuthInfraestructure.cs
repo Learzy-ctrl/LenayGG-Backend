@@ -1,8 +1,8 @@
 ﻿/// Developer : Israel Curiel
 /// Creation Date : 02/10/2024
 /// Creation Description: Clase
-/// Update Date : --
-/// Update Description : --
+/// Update Date : 06/11/24
+/// Update Description : Metodo recuperar contraseña agregada
 ///CopyRight: Lenay gestor de gastos
 namespace LGG.LenayGestorGatos.Infraestructure.Repositories
 {
@@ -109,6 +109,31 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
                 return new RespuestaDB
                 {
                     Resultado = "Token Expirado o no valido",
+                    NumError = 1
+                };
+            }
+        }
+
+        /// <summary>
+        /// Envia un correo para resetear contrasenia
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RespuestaDB> ResetPasswordByEmail(ResetPasswordAggregate aggregate)
+        {
+            try
+            {
+                await authProvider.SendPasswordResetEmailAsync(aggregate.Email);
+                return new RespuestaDB
+                {
+                    Resultado = "Correo enviado con exito",
+                    NumError = 0
+                };
+            }
+            catch (Exception ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Ha ocurrido un error {ex.Message}",
                     NumError = 1
                 };
             }
