@@ -4,8 +4,8 @@ using LGG.LenayGestorGatos.Domain.Aggregates.Wallet;
 /// Developer : Israel Curiel
 /// Creation Date : 25/10/2024
 /// Creation Description: Clase
-/// Update Date : --
-/// Update Description : --
+/// Update Date : 03/11/2024
+/// Update Description : Datos de envio agregados(Fecha Actual)
 ///CopyRight: Lenay gestor de gastos
 namespace LGG.LenayGestorGatos.Infraestructure.Repositories
 {
@@ -81,14 +81,15 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             }
         }
 
-        public async Task<object> GetRegistrosGastosByIdUsuario(string usuarioId)
+        public async Task<object> GetRegistrosGastosByIdUsuario(string usuarioId, DateTime fechaActual)
         {
             try
             {
-                var sqlQuery = "CALL SP_ConsultarGastosPorUsuario(@p_IdUsuario)";
+                var sqlQuery = "CALL SP_ConsultarGastosPorUsuario(@p_IdUsuario, @p_FechaActual)";
                 var parameters = new[]
                 {
-                    new MySqlParameter("@p_IdUsuario", usuarioId)
+                    new MySqlParameter("@p_IdUsuario", usuarioId),
+                    new MySqlParameter("@p_FechaActual", fechaActual)
                 };
                 var dataSP = await _context.gastoDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP;
@@ -103,14 +104,15 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             }
         }
 
-        public async Task<object> GetRegistrosGastosByIdWallet(IdWalletAggregate aggregate)
+        public async Task<object> GetRegistrosGastosByIdWallet(IdWalletAggregate aggregate, DateTime fechaActual)
         {
             try
             {
-                var sqlQuery = "CALL SP_ConsultarGastosPorBilletera(@p_IdBilletera)";
+                var sqlQuery = "CALL SP_ConsultarGastosPorBilletera(@p_IdBilletera, @p_FechaActual)";
                 var parameters = new[]
                 {
-                    new MySqlParameter("@p_IdBilletera", aggregate.id)
+                    new MySqlParameter("@p_IdBilletera", aggregate.id),
+                    new MySqlParameter("@p_FechaActual", fechaActual)
                 };
                 var dataSP = await _context.gastoDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP;
@@ -125,14 +127,15 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             }
         }
 
-        public async Task<object> GetRegistrosIngresosByIdUsuario(string usuarioId)
+        public async Task<object> GetRegistrosIngresosByIdUsuario(string usuarioId, DateTime fechaActual)
         {
             try
             {
-                var sqlQuery = "CALL SP_ConsultarIngresosPorUsuario(@p_IdUsuario)";
+                var sqlQuery = "CALL SP_ConsultarIngresosPorUsuario(@p_IdUsuario, @p_FechaActual)";
                 var parameters = new[]
                 {
-                    new MySqlParameter("@p_IdUsuario", usuarioId)
+                    new MySqlParameter("@p_IdUsuario", usuarioId),
+                    new MySqlParameter("@p_FechaActual", fechaActual)
                 };
                 var dataSP = await _context.ingresoDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP;
@@ -147,19 +150,38 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             }
         }
 
-        public async Task<object> GetRegistrosIngresosByIdWallet(IdWalletAggregate aggregate)
+        public async Task<object> GetRegistrosIngresosByIdWallet(IdWalletAggregate aggregate, DateTime fechaActual)
         {
             try
             {
-                var sqlQuery = "CALL SP_ConsultarIngresosPorBilletera(@p_IdBilletera)";
+                var sqlQuery = "CALL SP_ConsultarIngresosPorBilletera(@p_IdBilletera, @p_FechaActual)";
                 var parameters = new[]
                 {
-                    new MySqlParameter("@p_IdBilletera", aggregate.id)
+                    new MySqlParameter("@p_IdBilletera", aggregate.id),
+                    new MySqlParameter("@p_FechaActual", fechaActual)
                 };
                 var dataSP = await _context.ingresoDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP;
             }
             catch (MySqlException ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Error en la base de datos: {ex.Message}",
+                    NumError = 2
+                };
+            }
+        }
+
+        public async Task<object> GetCategorias()
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_ConsultarCategorias()";
+                var dataSP = await _context.categoriaDto.FromSqlRaw(sqlQuery).ToListAsync();
+                return dataSP;
+            }
+            catch(MySqlException ex)
             {
                 return new RespuestaDB
                 {

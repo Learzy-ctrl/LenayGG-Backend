@@ -124,5 +124,27 @@ namespace LGG.LenayGestorGatos.API.Controllers
             }
             return Ok(await _appController.transactionPresenter.GetTransaccionesByIdUsuario(token));
         }
+
+        [HttpPost("GetCategorias")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async ValueTask<IActionResult> GetCategorias([FromHeader] string Authorization)
+        {
+            if (string.IsNullOrEmpty(Authorization))
+            {
+                return Unauthorized("Token no proporcionado.");
+            }
+
+            var token = Authorization.StartsWith("Bearer ") ? Authorization.Substring("Bearer ".Length).Trim() : null;
+
+            if (token == null)
+            {
+                return Unauthorized("Token no válido.");
+            }
+            return Ok(await _appController.transactionPresenter.GetCategorias(token));
+        }
     }
 }

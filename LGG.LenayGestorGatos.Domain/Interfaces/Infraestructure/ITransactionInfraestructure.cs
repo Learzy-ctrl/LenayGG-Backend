@@ -1,8 +1,8 @@
 ﻿/// Developer : Israel Curiel
 /// Creation Date : 25/10/2024
 /// Creation Description:Interface
-/// Update Date : --/--/----
-/// Update Description : ------
+/// Update Date : 30/10/2024
+/// Update Description : Metodo GetCategorias Agregado
 ///CopyRight: Lenay gestor de gastos
 namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
 {
@@ -24,24 +24,30 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
         /// Obtiene todos los registros de la tabla Gasto de una billetera en especifico 
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRegistrosGastosByIdWallet(IdWalletAggregate aggregate);
+        Task<object> GetRegistrosGastosByIdWallet(IdWalletAggregate aggregate, DateTime fechaActual);
 
         /// <summary>
         /// Obtiene todos los registros de la tabla Ingreso de una billetera en especifico 
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRegistrosIngresosByIdWallet(IdWalletAggregate aggregate);
+        Task<object> GetRegistrosIngresosByIdWallet(IdWalletAggregate aggregate, DateTime fechaActual);
 
         /// <summary>
         /// Obtiene todos los registros de la tabla Gasto de un usuario en especifico
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRegistrosGastosByIdUsuario(string usuarioId);
+        Task<object> GetRegistrosGastosByIdUsuario(string usuarioId, DateTime fechaActual);
 
         /// <summary>
         /// Obtiene todos los registros de la tabla Ingreso de un usuario en especifico
         /// </summary>
         /// <returns></returns>
-        Task<object> GetRegistrosIngresosByIdUsuario(string usuarioId);
+        Task<object> GetRegistrosIngresosByIdUsuario(string usuarioId, DateTime fechaActual);
+
+        /// <summary>
+        /// Obtiene todas las categorias de la bd
+        /// </summary>
+        /// <returns></returns>
+        Task<object> GetCategorias();
     }
 }
