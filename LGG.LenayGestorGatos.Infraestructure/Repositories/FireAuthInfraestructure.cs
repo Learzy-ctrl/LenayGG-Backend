@@ -29,9 +29,12 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             try
             {
                 var response = await authProvider.CreateUserWithEmailAndPasswordAsync(aggregate.email, aggregate.Contrasenia, aggregate.NombreUser);
+                var app = _fireContext.firebaseApp;
+                var auth = FirebaseAdmin.Auth.FirebaseAuth.GetAuth(app);
+                var decodedToken = await auth.VerifyIdTokenAsync(response.FirebaseToken);
                 var respuesta = new RespuestaDB
                 {
-                    Resultado = response.FirebaseToken,
+                    Resultado = decodedToken.Uid,
                     NumError = 0
                 };
                 return respuesta;
