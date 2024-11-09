@@ -24,6 +24,6 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Services
         /// Envia un correo para resetear contrasenia
         /// </summary>
         /// <returns></returns>
-        Task<RespuestaDB> ResetPasswordByEmail(ResetPasswordAggregate aggregate);
+        Task<RespuestaDB> ResetPasswordByEmail(EmailAggregate aggregate);
     }
 }

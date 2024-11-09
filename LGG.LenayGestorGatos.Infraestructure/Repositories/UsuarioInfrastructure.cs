@@ -45,10 +45,137 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
                 return new RespuestaDB
                 {
                     Resultado = $"Error en la base de datos: {ex.Message}",
-                    NumError = 1
+                    NumError = 2
                 };
             }
         }
 
+
+        /// <summary>
+        /// Registra la url de la imagen del usuario
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RespuestaDB> UploadImage(string UrlImage, string UID)
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_ActualizarFotoUser(@p_Id, @p_FotoUser)";
+                var parameters = new[]
+                {
+                    new MySqlParameter("@p_Id", UID),
+                    new MySqlParameter("@p_FotoUser", UrlImage)
+                };
+
+                await _context.Database.ExecuteSqlRawAsync(sqlQuery, parameters);
+
+                return new RespuestaDB
+                {
+                    Resultado = "Operacion exitosa",
+                    NumError = 0
+                };
+            }
+            catch(MySqlException ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Error en la base de datos: {ex.Message}",
+                    NumError = 2
+                };
+            }
+        }
+
+        /// <summary>
+        /// Actualiza los datos de un usuario
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RespuestaDB> UpdateUser(UpdateUserAggregate aggregate, string UID)
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_ActualizarNombreYApellidoUsuario(@p_Id, @p_NombreUser, @p_ApellidoUsuario)";
+                var parameters = new[]
+                {
+                    new MySqlParameter("@p_Id", UID),
+                    new MySqlParameter("@p_NombreUser", aggregate.Nombre),
+                    new MySqlParameter("@p_ApellidoUsuario", aggregate.Apellido)
+                };
+
+                await _context.Database.ExecuteSqlRawAsync(sqlQuery, parameters);
+
+                return new RespuestaDB
+                {
+                    Resultado = "Operacion exitosa",
+                    NumError = 0
+                };
+            }
+            catch (MySqlException ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Error en la base de datos: {ex.Message}",
+                    NumError = 2
+                };
+            }
+        }
+
+        /// <summary>
+        /// Consulta un usuario por su id
+        /// </summary>
+        /// <returns></returns>
+        public async Task<object> GetUser(string id)
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_GetUsuarioById(@p_UserId)";
+                var parameters = new[]
+                {
+                    new MySqlParameter("@p_UserId", id)
+                };
+
+                var userList = await _context.usuarioDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+
+                return userList.FirstOrDefault();
+            }
+            catch (MySqlException ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Error en la base de datos: {ex.Message}",
+                    NumError = 2
+                };
+            }
+        }
+
+        /// <summary>
+        /// Elimina un usuario por su id
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RespuestaDB> DeleteUser(string id)
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_EliminarUsuarioPorId(@p_UsuarioId)";
+                var parameters = new[]
+                {
+                    new MySqlParameter("@p_UsuarioId", id)
+                };
+
+                await _context.Database.ExecuteSqlRawAsync(sqlQuery, parameters);
+
+                return new RespuestaDB
+                {
+                    Resultado = "Operacion exitosa",
+                    NumError = 0
+                };
+            }
+            catch (MySqlException ex)
+            {
+                return new RespuestaDB
+                {
+                    Resultado = $"Error en la base de datos: {ex.Message}",
+                    NumError = 2
+                };
+            }
+        }
     }
 }

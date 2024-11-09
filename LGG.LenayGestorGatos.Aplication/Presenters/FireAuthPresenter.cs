@@ -42,7 +42,7 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
         /// Envia un correo para resetear contrasenia
         /// </summary>
         /// <returns></returns>
-        public async Task<RespuestaDB> ResetPasswordByEmail(ResetPasswordAggregate aggregate)
+        public async Task<RespuestaDB> ResetPasswordByEmail(EmailAggregate aggregate)
         {
             return await _unitRepository.fireAuthInfraestructure.ResetPasswordByEmail(aggregate);
         }
