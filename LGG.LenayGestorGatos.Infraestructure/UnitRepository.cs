@@ -1,13 +1,19 @@
-﻿namespace LGG.LenayGestorGatos.Infraestructure;
+﻿
+namespace LGG.LenayGestorGatos.Infraestructure;
 public class UnitRepository:BaseDisposable, IUnitRepository
 {
     private readonly GestorInventariosContext _context;
+    private readonly GestorGastosContext _contexto;
+    private readonly FirebaseContext _fireContext;
     private readonly IConfiguration _configuration;
 
-    public UnitRepository(GestorInventariosContext context, IConfiguration configuration)
+
+    public UnitRepository(GestorInventariosContext context, GestorGastosContext contexto, FirebaseContext fireContext,IConfiguration configuration)
     {
         _context = context;
         _configuration = configuration;
+        _contexto = contexto;
+        _fireContext = fireContext;
     }
 
     protected override void DisposeManagedResource()
@@ -31,6 +37,13 @@ public class UnitRepository:BaseDisposable, IUnitRepository
     //
     public IPersonaInfraestructure personaInfraestructure => new PersonaInfraestructure(_context);
 
+    public IUsuarioInfrastructure usuarioInfrastructure => new UsuarioInfrastructure(_contexto);
+
+    public IFireAuthInfraestructure fireAuthInfraestructure => new FireAuthInfraestructure(_fireContext);
+
+    public IWalletInfraestructure walletInfraestructure => new WalletInfraestructure(_contexto);
+
+    public ITransactionInfraestructure transactionInfraestructure => new TransactionInfraestructure(_contexto);
 
     public async ValueTask<bool> Complete()
     {
