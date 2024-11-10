@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LGG.LenayGestorGatos.Domain.Aggregates.Usuario
 {
-    public class ResetPasswordAggregate
+    public class PasswordAggregate
     {
-        public string Email { get; set; }
+        public string password { get; set; }
     }
 }

@@ -103,7 +103,7 @@ namespace LGG.LenayGestorGatos.API.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async ValueTask<IActionResult> ResetPassword([FromBody] ResetPasswordAggregate aggregate)
+        public async ValueTask<IActionResult> ResetPassword([FromBody] EmailAggregate aggregate)
         {
             return Ok(await _appController.fireAuthPresenter.ResetPasswordByEmail(aggregate));
         }
