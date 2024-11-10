@@ -70,7 +70,7 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
 
                 return new RespuestaDB
                 {
-                    Resultado = "Operacion exitosa",
+                    Resultado = UrlImage,
                     NumError = 0
                 };
             }
