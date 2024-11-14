@@ -97,7 +97,7 @@ namespace LGG.LenayGestorGatos.API.Controllers
             return Ok(await _appController.usuarioPresenter.DeleteUser(token));
         }
 
-        [HttpPost("ChangeUserEmail")]
+        /*[HttpPost("ChangeUserEmail")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
@@ -117,7 +117,7 @@ namespace LGG.LenayGestorGatos.API.Controllers
                 return Unauthorized("Token no válido.");
             }
             return Ok(await _appController.usuarioPresenter.ChangeUserEmail(aggregate, token));
-        }
+        }*/
 
         [HttpPost("ChangeUserPassword")]
         [Consumes(MediaTypeNames.Application.Json)]
