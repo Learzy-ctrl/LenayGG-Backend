@@ -1,4 +1,5 @@
 ﻿using Firebase.Storage;
+using FirebaseAdmin.Messaging;
 
 /// Developer : Israel Curiel
 /// Creation Date : 02/10/2024
@@ -242,6 +243,51 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
                     Resultado = $"Ha ocurrido un error {ex.Message}",
                     NumError = 1
                 };
+            }
+        }
+
+        /// <summary>
+        /// Envia notificaciones al dispositivo del usuario
+        /// </summary>
+        /// <returns></returns>
+        public async Task<NotificationAggregate> SendNotification(string deviceToken, string typeTransaction, string amount, DateTime fechaTransaccion)
+        {
+            try
+            {
+                string message = "";
+                switch (typeTransaction)
+                {
+                    case "Gasto":
+                        message = "gastado";
+                        break;
+                    case "Ingreso":
+                        message = "ingresado";
+                        break;
+                    case "Transferencia":
+                        message = "transferido";
+                        break;
+                }
+
+                var messaging = FirebaseMessaging.GetMessaging(_fireContext.firebaseApp);
+                var messageNotification = new Message()
+                {
+                    Token = deviceToken,
+                    Notification = new Notification()
+                    {
+                        Title = $"{typeTransaction} realizado con exito",
+                        Body = $"Haz {message} ${amount} recientemente"
+                    }
+                };
+                messaging.SendAsync(messageNotification).GetAwaiter();
+                return new NotificationAggregate
+                {
+                    encabezado = $"{typeTransaction} realizado con exito",
+                    cuerpo = $"Haz {message} ${amount} recientemente",
+                    fecha = fechaTransaccion,
+                };
+            }catch(Exception ex)
+            {
+                return null;
             }
         }
     }

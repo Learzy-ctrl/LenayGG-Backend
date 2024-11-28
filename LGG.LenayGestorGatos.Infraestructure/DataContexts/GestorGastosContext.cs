@@ -13,6 +13,7 @@
         public DbSet<CategoriaDto> categoriaDto { get; set; }
         public DbSet<GastosPorCategoriaDto> gastosPorCategoriaDtos { get; set; }
         public DbSet<NotificationDto> notificationDto { get; set; }   
+        public DbSet<UserDeviceDto> userDeviceDto { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,6 +21,7 @@
             modelBuilder.Entity<GastoDto>().HasNoKey();
             modelBuilder.Entity<GastosPorCategoriaDto>().HasNoKey();
             modelBuilder.Entity<NotificationDto>().HasNoKey();
+            modelBuilder.Entity<UserDeviceDto>().HasNoKey();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
