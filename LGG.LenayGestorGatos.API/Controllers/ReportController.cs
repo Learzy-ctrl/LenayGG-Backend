@@ -1,8 +1,4 @@
-﻿using LGG.LenayGestorGatos.Domain.Aggregates.Reportes;
-using LGG.LenayGestorGatos.Domain.DTOs.Reportes;
-using System.Net;
-
-/// Developer : Israel Curiel
+﻿/// Developer : Israel Curiel
 /// Creation Date : 14/11/2024
 /// Creation Description: Controlador
 /// Update Date : --
