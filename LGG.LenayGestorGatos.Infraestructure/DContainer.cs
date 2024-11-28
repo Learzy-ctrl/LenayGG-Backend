@@ -8,7 +8,7 @@ public static class DContainer
 
         var connectionSettingsSection = configuration.GetSection(ConnectionsSettings.SectionName);
         var connectionSettings = connectionSettingsSection.Get<ConnectionsSettings>();
-        string serviceAccountPath = "Config/lenay-gestor-de-gastos-firebase-adminsdk-ulqms-082b9f262e.json";
+        string serviceAccountPath = "Config/lenay-gestor-de-gastos-firebase-adminsdk-ulqms-6d44e4c274.json";
 
         services
         .Configure<ConnectionsSettings>(connectionSettingsSection)
