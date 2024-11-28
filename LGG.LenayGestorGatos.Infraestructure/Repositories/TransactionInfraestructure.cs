@@ -1,7 +1,4 @@
-﻿using LGG.LenayGestorGatos.Domain.Aggregates.Transactions;
-using LGG.LenayGestorGatos.Domain.Aggregates.Wallet;
-
-/// Developer : Israel Curiel
+﻿/// Developer : Israel Curiel
 /// Creation Date : 25/10/2024
 /// Creation Description: Clase
 /// Update Date : 03/11/2024
