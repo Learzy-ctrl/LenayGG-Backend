@@ -28,5 +28,6 @@ namespace LGG.LenayGestorGatos.Aplication.Controllers
         public ITransactionPresenter transactionPresenter => new TransactionPresenter(_unitRepository, _mapper);
 
         public IReportePresenter reportePresenter => new ReportePresenter(_unitRepository, _mapper);
+        public INotificationPresenter notificationPresenter => new NotificationPresenter(_unitRepository, _mapper);
     }
 }

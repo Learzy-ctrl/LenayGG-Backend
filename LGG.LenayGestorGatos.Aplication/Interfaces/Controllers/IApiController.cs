@@ -7,4 +7,5 @@ public interface IApiController
     IWalletPresenter walletPresenter { get; }
     ITransactionPresenter transactionPresenter { get; }
     IReportePresenter reportePresenter { get; }
+    INotificationPresenter notificationPresenter { get; }
 }

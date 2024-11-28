@@ -13,5 +13,6 @@ namespace LGG.LenayGestorGatos.Aplication.Interfaces.Persistance
         IWalletInfraestructure walletInfraestructure { get; }
         ITransactionInfraestructure transactionInfraestructure { get; }
         IReporteInfrastructure reporteInfrastructure { get; }
+        INotificationInfrastructure notificationInfrastructure { get; }
     }
 }

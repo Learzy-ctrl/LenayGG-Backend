@@ -1,16 +1,13 @@
-﻿/// Developer : Israel Curiel
-/// Creation Date : 14/11/2024
-/// Creation Description: Controlador
-/// Update Date : --
-/// Update Description : --
-///CopyRight: Lenay gestor de gastos
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
 namespace LGG.LenayGestorGatos.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReportController : ApiController
+    public class NotificationController : ApiController
     {
-        public ReportController(IApiController appController) : base(appController)
+        public NotificationController(IApiController appController) : base(appController)
         {
 
         }
@@ -30,10 +27,10 @@ namespace LGG.LenayGestorGatos.API.Controllers
         ///          "id_billetera": "b73ca863-9a96-11ef-8703-5254001eccc3",
         ///          "todas_billeteras": false
         ///        }
-    /// </remarks>   
-    /// <response code="200">string</response>  
-    /// <response code="400">string</response> 
-    /// <response code="500">string</response> 
+        /// </remarks>   
+        /// <response code="200">string</response>  
+        /// <response code="400">string</response> 
+        /// <response code="500">string</response> 
         [HttpPost("GetGastosByFilter")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
