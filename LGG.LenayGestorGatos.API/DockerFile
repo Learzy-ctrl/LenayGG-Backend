@@ -2,6 +2,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y ntpdate
+RUN ntpdate -s time.google.com
+
+
 # Copia los archivos .csproj de cada proyecto y restaura dependencias
 COPY LGG.LenayGestorGatos.API/*.csproj ./LGG.LenayGestorGatos.API/
 COPY LGG.LenayGestorGatos.Aplication/*.csproj ./LGG.LenayGestorGatos.Aplication/
