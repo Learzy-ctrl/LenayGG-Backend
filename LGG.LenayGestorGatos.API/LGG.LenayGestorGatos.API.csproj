@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Config\" />
     <Folder Include="Extensions\" />
     <Folder Include="Swagger\" />
   </ItemGroup>

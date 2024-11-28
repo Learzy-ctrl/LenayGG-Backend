@@ -278,7 +278,7 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
                         Body = $"Has {message} ${amount} recientemente"
                     }
                 };
-                var result = messaging.SendAsync(messageNotification).GetAwaiter().GetResult();
+                messaging.SendAsync(messageNotification).GetAwaiter();
                 return new NotificationAggregate
                 {
                     encabezado = $"{typeTransaction} realizado con exito",
