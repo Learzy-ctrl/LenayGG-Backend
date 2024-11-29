@@ -37,5 +37,11 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
         /// </summary>
         /// <returns></returns>
         Task<RespuestaDB> DeleteUser(string id);
+
+        /// <summary>
+        /// obtiene el userDeviceId
+        /// </summary>
+        /// <returns></returns>
+        Task<string> GetUserDeviceId(string UID);
     }
 }

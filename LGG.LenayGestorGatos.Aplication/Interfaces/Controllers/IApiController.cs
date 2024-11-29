@@ -6,4 +6,6 @@ public interface IApiController
     IFireAuthPresenter fireAuthPresenter { get; }
     IWalletPresenter walletPresenter { get; }
     ITransactionPresenter transactionPresenter { get; }
+    IReportePresenter reportePresenter { get; }
+    INotificationPresenter notificationPresenter { get; }
 }
