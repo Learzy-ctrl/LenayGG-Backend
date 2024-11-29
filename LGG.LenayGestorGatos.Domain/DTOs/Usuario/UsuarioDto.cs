@@ -10,8 +10,9 @@ namespace LGG.LenayGestorGatos.Domain.DTOs.Usuario
     {
         [Key]
         public string Id { get; set; }
-        public string FotoUser {  get; set; }
+        public string? FotoUser {  get; set; }
         public string NombreUser {  get; set; }
-        public string ApellidoUsuario {  get; set; }
+        public string? ApellidoUsuario {  get; set; }
+        public DateTime FechaNacimiento { get; set; }
     }
 }

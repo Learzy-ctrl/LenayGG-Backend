@@ -12,9 +12,10 @@ namespace LGG.LenayGestorGatos.Infraestructure.DataContexts
 
         private FirebaseApp InitializeFirebase(string serviceAccountPath)
         {
+            GoogleCredential credential = GoogleCredential.FromJson(serviceAccountPath);
             return FirebaseApp.Create(new AppOptions()
             {
-                Credential = GoogleCredential.FromFile(serviceAccountPath)
+                Credential = credential
             });
         }
     }

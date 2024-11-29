@@ -13,5 +13,35 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
         /// </summary>
         /// <returns></returns>
         Task<RespuestaDB> AddUsuario(UsuarioAggregate aggregate);
+
+        /// <summary>
+        /// Registra la url de la imagen del usuario
+        /// </summary>
+        /// <returns></returns>
+        Task<RespuestaDB> UploadImage(string UrlImage, string UID);
+
+        /// <summary>
+        /// Actualiza los datos de un usuario
+        /// </summary>
+        /// <returns></returns>
+        Task<RespuestaDB> UpdateUser(UpdateUserAggregate aggregate, string UID);
+
+        /// <summary>
+        /// Consulta un usuario por su id
+        /// </summary>
+        /// <returns></returns>
+        Task<object> GetUser(string id);
+
+        /// <summary>
+        /// Elimina un usuario por su id
+        /// </summary>
+        /// <returns></returns>
+        Task<RespuestaDB> DeleteUser(string id);
+
+        /// <summary>
+        /// obtiene el userDeviceId
+        /// </summary>
+        /// <returns></returns>
+        Task<string> GetUserDeviceId(string UID);
     }
 }

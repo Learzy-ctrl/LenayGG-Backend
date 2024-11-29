@@ -3,7 +3,7 @@ using LGG.LenayGestorGatos.Aplication.Presenters;
 
 namespace LGG.LenayGestorGatos.Aplication.Controllers
 {
-    public class ApiController:IApiController
+    public class ApiController: IApiController
     {
         private readonly IUnitRepository _unitRepository;
         private readonly IMapper _mapper;
@@ -24,5 +24,10 @@ namespace LGG.LenayGestorGatos.Aplication.Controllers
         public IFireAuthPresenter fireAuthPresenter => new FireAuthPresenter(_unitRepository, _mapper);
 
         public IWalletPresenter walletPresenter => new WalletPresenter(_unitRepository, _mapper);
+
+        public ITransactionPresenter transactionPresenter => new TransactionPresenter(_unitRepository, _mapper);
+
+        public IReportePresenter reportePresenter => new ReportePresenter(_unitRepository, _mapper);
+        public INotificationPresenter notificationPresenter => new NotificationPresenter(_unitRepository, _mapper);
     }
 }
