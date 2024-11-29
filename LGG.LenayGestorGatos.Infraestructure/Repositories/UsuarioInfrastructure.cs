@@ -177,5 +177,25 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
                 };
             }
         }
+
+        /// <summary>
+        /// obtiene el userDeviceId
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetUserDeviceId(string UID)
+        {
+            try
+            {
+                var sqlQuery = "CALL SP_ObtenerIdDevicePorUsuario(@usuarioId)";
+                var parameter = new MySqlParameter("@usuarioId", UID);
+                var idDevice = await _context.userDeviceDto.FromSqlRaw(sqlQuery, parameter).ToListAsync();
+                var firstDevice = idDevice.FirstOrDefault();
+                return firstDevice.idDevice;
+            }
+            catch (MySqlException ex)
+            {
+                return "Algo salio mal";
+            }
+        }
     }
 }

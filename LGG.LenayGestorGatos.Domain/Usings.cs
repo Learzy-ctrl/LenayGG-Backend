@@ -7,3 +7,5 @@ global using LGG.LenayGestorGatos.Domain.Aggregates.Transactions;
 global using LGG.LenayGestorGatos.Domain.Aggregates.Wallet;
 global using LGG.LenayGestorGatos.Domain.DTOs.Wallet;
 global using LGG.LenayGestorGatos.Domain.Aggregates.Reportes;
+global using LGG.LenayGestorGatos.Domain.Aggregates.Notification;
+global using LGG.LenayGestorGatos.Domain.DTOs.Notification;

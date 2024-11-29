@@ -55,5 +55,11 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Infraestructure
         /// </summary>
         /// <returns></returns>
         Task<RespuestaDB> ChangeUserPassword(string password, string token);
+
+        /// <summary>
+        /// Envia notificaciones al dispositivo del usuario
+        /// </summary>
+        /// <returns></returns>
+        Task<NotificationAggregate> SendNotification(string deviceToken, string typeTransaction, string amount, DateTime fechaTransaccion);
     }
 }

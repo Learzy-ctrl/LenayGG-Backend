@@ -1,8 +1,4 @@
-﻿using LGG.LenayGestorGatos.Domain.Aggregates.Reportes;
-using LGG.LenayGestorGatos.Domain.DTOs.Reportes;
-using System.Net;
-
-/// Developer : Israel Curiel
+﻿/// Developer : Israel Curiel
 /// Creation Date : 14/11/2024
 /// Creation Description: Controlador
 /// Update Date : --
@@ -38,7 +34,7 @@ namespace LGG.LenayGestorGatos.API.Controllers
     /// <response code="200">string</response>  
     /// <response code="400">string</response> 
     /// <response code="500">string</response> 
-    [HttpPost("GetGastosByFilter")]
+        [HttpPost("GetGastosByFilter")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]

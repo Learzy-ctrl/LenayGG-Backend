@@ -46,6 +46,7 @@ public class UnitRepository:BaseDisposable, IUnitRepository
     public ITransactionInfraestructure transactionInfraestructure => new TransactionInfraestructure(_contexto);
 
     public IReporteInfrastructure reporteInfrastructure => new ReporteInfrastructure(_contexto);
+    public INotificationInfrastructure notificationInfrastructure => new NotificationInfrastructure(_contexto);
 
     public async ValueTask<bool> Complete()
     {

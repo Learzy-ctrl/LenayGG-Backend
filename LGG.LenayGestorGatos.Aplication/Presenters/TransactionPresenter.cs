@@ -1,7 +1,4 @@
-﻿using LGG.LenayGestorGatos.Domain.Aggregates.Transactions;
-using LGG.LenayGestorGatos.Domain.DTOs.Transaction;
-
-/// Developer : Israel Curiel
+﻿/// Developer : Israel Curiel
 /// Creation Date : 25/10/2024
 /// Creation Description:Clase
 /// Update Date : 03/11/2024
@@ -27,7 +24,19 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                 return respuesta;
             }
             aggregate.IdUsuario = respuesta.Resultado;
-            return await _unitRepository.transactionInfraestructure.AddGasto(aggregate);
+            var response = await _unitRepository.transactionInfraestructure.AddGasto(aggregate);
+
+            if (response.NumError == 0)
+            {
+                var idDevice = await _unitRepository.usuarioInfrastructure.GetUserDeviceId(respuesta.Resultado);
+                var notification = await _unitRepository.fireAuthInfraestructure.SendNotification(idDevice, "Gasto", aggregate.Dinero.ToString(), aggregate.Fecha);
+                if (notification != null)
+                {
+                    notification.idUsuario = respuesta.Resultado;
+                    await _unitRepository.notificationInfrastructure.AddNotification(notification);
+                }
+            }
+            return response;
         }
 
         public async Task<RespuestaDB> AddIngreso(TransactionAggregate aggregate, string token)
@@ -38,7 +47,19 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                 return respuesta;
             }
             aggregate.IdUsuario = respuesta.Resultado;
-            return await _unitRepository.transactionInfraestructure.AddIngreso(aggregate);
+            var response = await _unitRepository.transactionInfraestructure.AddIngreso(aggregate);
+
+            if (response.NumError == 0)
+            {
+                var idDevice = await _unitRepository.usuarioInfrastructure.GetUserDeviceId(respuesta.Resultado);
+                var notification = await _unitRepository.fireAuthInfraestructure.SendNotification(idDevice, "Ingreso", aggregate.Dinero.ToString(), aggregate.Fecha);
+                if (notification != null)
+                {
+                    notification.idUsuario = respuesta.Resultado;
+                    await _unitRepository.notificationInfrastructure.AddNotification(notification);
+                }
+            }
+            return response;
         }
 
         public async Task<RespuestaDB> AddTransferencia(TransferAggregate aggregate, string token)
@@ -55,7 +76,18 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
             {
                 return response;
             }
-            return await _unitRepository.transactionInfraestructure.AddIngreso(aggregate.Ingreso);
+            var respons = await _unitRepository.transactionInfraestructure.AddIngreso(aggregate.Ingreso);
+            if (respons.NumError == 0)
+            {
+                var idDevice = await _unitRepository.usuarioInfrastructure.GetUserDeviceId(respuesta.Resultado);
+                var notification = await _unitRepository.fireAuthInfraestructure.SendNotification(idDevice, "Transferencia", aggregate.Ingreso.Dinero.ToString(), aggregate.Ingreso.Fecha);
+                if (notification != null)
+                {
+                    notification.idUsuario = respuesta.Resultado;
+                    await _unitRepository.notificationInfrastructure.AddNotification(notification);
+                }
+            }
+            return respons;
         }
 
         public async Task<object> GetTransaccionesByIdUsuario(string token)
