@@ -26,7 +26,7 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
             aggregate.IdUsuario = respuesta.Resultado;
             var response = await _unitRepository.transactionInfraestructure.AddGasto(aggregate);
 
-            if (response.NumError == 0)
+            /*if (response.NumError == 0)
             {
                 var idDevice = await _unitRepository.usuarioInfrastructure.GetUserDeviceId(respuesta.Resultado);
                 var notification = await _unitRepository.fireAuthInfraestructure.SendNotification(idDevice, "Gasto", aggregate.Dinero.ToString(), aggregate.Fecha);
@@ -35,7 +35,7 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                     notification.idUsuario = respuesta.Resultado;
                     await _unitRepository.notificationInfrastructure.AddNotification(notification);
                 }
-            }
+            }*/
             return response;
         }
 
@@ -49,7 +49,7 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
             aggregate.IdUsuario = respuesta.Resultado;
             var response = await _unitRepository.transactionInfraestructure.AddIngreso(aggregate);
 
-            if (response.NumError == 0)
+            /*if (response.NumError == 0)
             {
                 var idDevice = await _unitRepository.usuarioInfrastructure.GetUserDeviceId(respuesta.Resultado);
                 var notification = await _unitRepository.fireAuthInfraestructure.SendNotification(idDevice, "Ingreso", aggregate.Dinero.ToString(), aggregate.Fecha);
@@ -58,7 +58,7 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                     notification.idUsuario = respuesta.Resultado;
                     await _unitRepository.notificationInfrastructure.AddNotification(notification);
                 }
-            }
+            }*/
             return response;
         }
 
@@ -77,7 +77,7 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                 return response;
             }
             var respons = await _unitRepository.transactionInfraestructure.AddIngreso(aggregate.Ingreso);
-            if (respons.NumError == 0)
+            /*if (respons.NumError == 0)
             {
                 var idDevice = await _unitRepository.usuarioInfrastructure.GetUserDeviceId(respuesta.Resultado);
                 var notification = await _unitRepository.fireAuthInfraestructure.SendNotification(idDevice, "Transferencia", aggregate.Ingreso.Dinero.ToString(), aggregate.Ingreso.Fecha);
@@ -86,7 +86,7 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                     notification.idUsuario = respuesta.Resultado;
                     await _unitRepository.notificationInfrastructure.AddNotification(notification);
                 }
-            }
+            }*/
             return respons;
         }
 
