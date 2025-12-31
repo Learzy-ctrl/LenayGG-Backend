@@ -101,14 +101,14 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             }
         }
 
-        public async Task<object> GetRegistrosGastosByIdWallet(IdWalletAggregate aggregate, DateTime fechaActual)
+        public async Task<object> GetRegistrosGastosByIdWallet(Guid id, DateTime fechaActual)
         {
             try
             {
                 var sqlQuery = "CALL SP_ConsultarGastosPorBilletera(@p_IdBilletera, @p_FechaActual)";
                 var parameters = new[]
                 {
-                    new MySqlParameter("@p_IdBilletera", aggregate.id),
+                    new MySqlParameter("@p_IdBilletera", id),
                     new MySqlParameter("@p_FechaActual", fechaActual)
                 };
                 var dataSP = await _context.gastoDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
@@ -147,14 +147,14 @@ namespace LGG.LenayGestorGatos.Infraestructure.Repositories
             }
         }
 
-        public async Task<object> GetRegistrosIngresosByIdWallet(IdWalletAggregate aggregate, DateTime fechaActual)
+        public async Task<object> GetRegistrosIngresosByIdWallet(Guid id, DateTime fechaActual)
         {
             try
             {
                 var sqlQuery = "CALL SP_ConsultarIngresosPorBilletera(@p_IdBilletera, @p_FechaActual)";
                 var parameters = new[]
                 {
-                    new MySqlParameter("@p_IdBilletera", aggregate.id),
+                    new MySqlParameter("@p_IdBilletera", id),
                     new MySqlParameter("@p_FechaActual", fechaActual)
                 };
                 var dataSP = await _context.ingresoDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();

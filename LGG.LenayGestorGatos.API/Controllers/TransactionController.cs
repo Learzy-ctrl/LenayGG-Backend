@@ -87,7 +87,7 @@ namespace LGG.LenayGestorGatos.API.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async ValueTask<IActionResult> GetTransaccionesByIdWallet([FromBody] IdWalletAggregate aggregate, [FromHeader] string Authorization)
+        public async ValueTask<IActionResult> GetTransaccionesByIdWallet([FromBody] WalletFechaTransactionAggregate aggregate, [FromHeader] string Authorization)
         {
             if (string.IsNullOrEmpty(Authorization))
             {
@@ -109,7 +109,7 @@ namespace LGG.LenayGestorGatos.API.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async ValueTask<IActionResult> GetTransaccionesByIdUsuario([FromHeader] string Authorization)
+        public async ValueTask<IActionResult> GetTransaccionesByIdUsuario([FromBody] FechaTransactionAggregate aggregate, [FromHeader] string Authorization)
         {
             if (string.IsNullOrEmpty(Authorization))
             {
@@ -122,7 +122,7 @@ namespace LGG.LenayGestorGatos.API.Controllers
             {
                 return Unauthorized("Token no válido.");
             }
-            return Ok(await _appController.transactionPresenter.GetTransaccionesByIdUsuario(token));
+            return Ok(await _appController.transactionPresenter.GetTransaccionesByIdUsuario(aggregate, token));
         }
 
         [HttpPost("GetCategorias")]

@@ -1,4 +1,6 @@
-﻿/// Developer : Israel Curiel
+﻿using System.Globalization;
+
+/// Developer : Israel Curiel
 /// Creation Date : 25/10/2024
 /// Creation Description:Clase
 /// Update Date : 03/11/2024
@@ -26,7 +28,7 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
             aggregate.IdUsuario = respuesta.Resultado;
             var response = await _unitRepository.transactionInfraestructure.AddGasto(aggregate);
 
-            if (response.NumError == 0)
+            /*if (response.NumError == 0)
             {
                 var idDevice = await _unitRepository.usuarioInfrastructure.GetUserDeviceId(respuesta.Resultado);
                 var notification = await _unitRepository.fireAuthInfraestructure.SendNotification(idDevice, "Gasto", aggregate.Dinero.ToString(), aggregate.Fecha);
@@ -35,7 +37,7 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                     notification.idUsuario = respuesta.Resultado;
                     await _unitRepository.notificationInfrastructure.AddNotification(notification);
                 }
-            }
+            }*/
             return response;
         }
 
@@ -49,7 +51,7 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
             aggregate.IdUsuario = respuesta.Resultado;
             var response = await _unitRepository.transactionInfraestructure.AddIngreso(aggregate);
 
-            if (response.NumError == 0)
+            /*if (response.NumError == 0)
             {
                 var idDevice = await _unitRepository.usuarioInfrastructure.GetUserDeviceId(respuesta.Resultado);
                 var notification = await _unitRepository.fireAuthInfraestructure.SendNotification(idDevice, "Ingreso", aggregate.Dinero.ToString(), aggregate.Fecha);
@@ -58,7 +60,7 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                     notification.idUsuario = respuesta.Resultado;
                     await _unitRepository.notificationInfrastructure.AddNotification(notification);
                 }
-            }
+            }*/
             return response;
         }
 
@@ -77,7 +79,7 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                 return response;
             }
             var respons = await _unitRepository.transactionInfraestructure.AddIngreso(aggregate.Ingreso);
-            if (respons.NumError == 0)
+            /*if (respons.NumError == 0)
             {
                 var idDevice = await _unitRepository.usuarioInfrastructure.GetUserDeviceId(respuesta.Resultado);
                 var notification = await _unitRepository.fireAuthInfraestructure.SendNotification(idDevice, "Transferencia", aggregate.Ingreso.Dinero.ToString(), aggregate.Ingreso.Fecha);
@@ -86,11 +88,11 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                     notification.idUsuario = respuesta.Resultado;
                     await _unitRepository.notificationInfrastructure.AddNotification(notification);
                 }
-            }
+            }*/
             return respons;
         }
 
-        public async Task<object> GetTransaccionesByIdUsuario(string token)
+        public async Task<object> GetTransaccionesByIdUsuario(FechaTransactionAggregate aggregate, string token)
         {
             var respuesta = await _unitRepository.fireAuthInfraestructure.ValidateAuth(token);
             if (respuesta.NumError != 0)
@@ -98,10 +100,10 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
                 return respuesta;
             }
             var IdUsuario = respuesta.Resultado;
-            TimeZoneInfo cdmxTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
-            DateTime cdmxDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cdmxTimeZone);
-            var gastoObject = await _unitRepository.transactionInfraestructure.GetRegistrosGastosByIdUsuario(IdUsuario, cdmxDateTime);
-            var ingresoObject = await _unitRepository.transactionInfraestructure.GetRegistrosIngresosByIdUsuario(IdUsuario, cdmxDateTime);
+            string formato = "dd/MM/yyyy H:mm:ss";
+            DateTime fecha = DateTime.ParseExact(aggregate.fecha, formato, CultureInfo.InvariantCulture);
+            var gastoObject = await _unitRepository.transactionInfraestructure.GetRegistrosGastosByIdUsuario(IdUsuario, fecha);
+            var ingresoObject = await _unitRepository.transactionInfraestructure.GetRegistrosIngresosByIdUsuario(IdUsuario, fecha);
             var listGasto = gastoObject as List<GastoDto>;
             var listIngreso = ingresoObject as List<IngresoDto>;
             if(listGasto == null || listIngreso == null)
@@ -147,17 +149,17 @@ namespace LGG.LenayGestorGatos.Aplication.Presenters
 
         }
 
-        public async Task<object> GetTransaccionesByIdWallet(IdWalletAggregate aggregate, string token)
+        public async Task<object> GetTransaccionesByIdWallet(WalletFechaTransactionAggregate aggregate, string token)
         {
             var respuesta = await _unitRepository.fireAuthInfraestructure.ValidateAuth(token);
             if (respuesta.NumError != 0)
             {
                 return respuesta;
             }
-            TimeZoneInfo cdmxTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
-            DateTime cdmxDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cdmxTimeZone);
-            var gastoObject = await _unitRepository.transactionInfraestructure.GetRegistrosGastosByIdWallet(aggregate, cdmxDateTime);
-            var ingresoObject = await _unitRepository.transactionInfraestructure.GetRegistrosIngresosByIdWallet(aggregate, cdmxDateTime);
+            string formato = "dd/MM/yyyy H:mm:ss";
+            DateTime fecha = DateTime.ParseExact(aggregate.fecha, formato, CultureInfo.InvariantCulture);
+            var gastoObject = await _unitRepository.transactionInfraestructure.GetRegistrosGastosByIdWallet(aggregate.idWallet, fecha);
+            var ingresoObject = await _unitRepository.transactionInfraestructure.GetRegistrosIngresosByIdWallet(aggregate.idWallet, fecha);
             var listGasto = gastoObject as List<GastoDto>;
             var listIngreso = ingresoObject as List<IngresoDto>;
             if (listGasto == null || listIngreso == null)
