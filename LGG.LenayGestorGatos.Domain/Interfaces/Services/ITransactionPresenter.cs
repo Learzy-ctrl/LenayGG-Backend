@@ -30,13 +30,13 @@ namespace LGG.LenayGestorGatos.Domain.Interfaces.Services
         /// Obtiene todos los registros de las tablas Gasto e Ingreso de una billetera en especifico 
         /// </summary>
         /// <returns></returns>
-        Task<object> GetTransaccionesByIdWallet(IdWalletAggregate aggregate, string token);
+        Task<object> GetTransaccionesByIdWallet(WalletFechaTransactionAggregate aggregate, string token);
 
         /// <summary>
         /// Obtiene todos los registros de las tablas Gasto e Ingreso de un usuario en especifico
         /// </summary>
         /// <returns></returns>
-        Task<object> GetTransaccionesByIdUsuario(string token);
+        Task<object> GetTransaccionesByIdUsuario(FechaTransactionAggregate aggregate, string token);
 
 
         /// <summary>
